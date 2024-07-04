@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" data-th-href="@{'/css/output.css'}"/>
+    -->
+</head>
+<body>
+    <!-- <h1>This is about page</h1> -->
+    <!-- Using Fragment -->
+    <h1>This is about</h1>
+    <hr>
+    <div class="opening"  th:replace="${isLogin} ? ~{base :: parent(~{::#set2})} : ~{base :: test(~{::.time})}">
+        <section id="set2">
+            This is dynamic content
+        </section>
+
+        <section class="time">
+            You are not logged in
+        </section>
+
+    </div>
+
+    <!-- <div th:insert="~{home :: homet}">
+
+    </div>  -->
+</body>
+</html>
