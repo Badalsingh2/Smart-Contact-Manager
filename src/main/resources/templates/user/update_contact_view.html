@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{base :: parent(~{::#content},~{::title},~{::script})}">
+
+<head>
+    <title th:text="${loggedInUser.name}+' | SCM'">Dashboard Page</title>
+</head>
+
+<body>
+
+    <div id="content">
+
+        <!-- logged in sidebar -->
+        <div th:if="${loggedInUser}">
+            <div th:replace="~{user/sidebar::sidebar}"></div>
+        </div>
+        <div class="sm:pl-64 pt-20" style="height: 1000px;">
+            <div class="grid grid-cols-12">
+                <div class="col-span-3"></div>
+                <div class="col-span-12 md:col-span-6">
+
+                    <div
+                        class="card block p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-600 dark:border-gray-700 dark:hover:bg-gray-700">
+
+                        <div th:replace="~{message::messagebox}"></div>
+                        <h1 class="text-2xl font-semibold">Edit Contact</h1>
+                        <div th:replace="~{message :: messagebox}"></div>
+
+                        <!-- Contact form -->
+                        <form  class="mt-8" th:action="@{'/user/contacts/update/'+${contactId}}" method="post"
+                            th:object="${contactForm}" novalidate enctype="multipart/form-data">
+                            <div class="mb-1">
+                                <div>
+                                    <label for="email-address-icon"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                        Contact Name</label>
+                                    <div class="relative mb-1">
+                                        <div
+                                            class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                                            <!-- <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 16">
+                        <path
+                          d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z" />
+                        <path
+                          d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z" />
+                      </svg> -->
+                                            <i class="fa-solid w-4 h-4 fa-user"></i>
+                                        </div>
+                                        <input type="text" th:field="*{name}"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            placeholder="name">
+
+                                        
+                                    </div>
+                                    <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-red-500  dark:text-red-400"  >Invalid Name</p>
+                                </div>
+                            </div>
+
+                            <!-- email -->
+                            <div class="mb-1">
+                                <div>
+                                    <label for="email-address-icon"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                        Contact Email</label>
+                                    <div class="relative">
+                                        <div
+                                            class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                                            <!-- <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 16">
+                        <path
+                          d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z" />
+                        <path
+                          d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z" />
+                      </svg> -->
+                                            <i class="fa-regular fa-envelope h-4 w-4"></i>
+                                        </div>
+                                        <input type="text" th:field="*{email}"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            placeholder="example@gmail.com">
+                                    </div>
+                                    <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-red-500 dark:text-red-400"  >Invalid email</p>
+                                </div>
+                            </div>
+
+                            <!-- Phone number -->
+                            <div class="mb-1">
+                                <div>
+                                    <label for="email-address-icon"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                        Contact Phone</label>
+                                    <div class="relative">
+                                        <div
+                                            class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                                            <!-- <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 16">
+                        <path
+                          d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z" />
+                        <path
+                          d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z" />
+                      </svg> -->
+                                            <i class="fa-solid fa-phone h-4 w-4"></i>
+                                        </div>
+                                        <input type="text" th:field="*{phoneNumber}"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            placeholder="9678964234">
+                                    </div>
+                                    <p th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" class="text-red-500 dark:text-red-400"  >Invalid phonenumber</p>
+                                </div>
+                            </div>
+
+                            <!-- Address -->
+                            <div class="mb-3">
+
+                                <label for="message"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                    Contact Address </label>
+                                <textarea  rows="4" th:field="*{address}"
+                                    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="Address of contact"></textarea>
+                                    <p th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="text-red-500 dark:text-red-400"  >Invalid Address</p>
+                            </div>
+
+                            <!-- description -->
+                            <div class="mb-3">
+
+                                <label for="message"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                    Contact Discription</label>
+                                <textarea rows="4" th:field="*{description}"
+                                    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="Write something about contact"></textarea>
+
+                            </div>
+
+                            <!-- Social Links -->
+                            <div class="flex space-x-3">
+                                <div>
+                                    <div class="mb-3">
+                                        <div>
+
+                                            <div class="relative">
+                                                <div
+                                                    class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+
+                                                    <i class="fa-solid fa-globe w-4 h-4"></i>
+                                                </div>
+                                                <input type="text" th:field="*{websiteLink}"
+                                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                    placeholder="http://lear2code.com">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div>
+                                    <div class="mb-3">
+                                        <div>
+                                            <!-- linked lin link -->
+                                            <div class="relative">
+                                                <div
+                                                    class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+
+                                                    <i class="fa-brands fa-linkedin w-4 h-4"></i>
+                                                </div>
+                                                <input type="text" th:field="*{linkedInLink}"
+                                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                    placeholder="http://lear2code.com">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <!-- contact image -->
+                            <div>
+                                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                    for="default_size">Contact Image</label>
+                                <input id="image_file_input"
+                                    class="block w-full mb-5 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                    th:field="*{contactImage}" type="file">
+
+                                <img th:src="*{picture}" class="max-h-52 mx-auto rounded-lg shadow m-3" src="" id="upload_image_preview" alt="">
+
+                            </div>
+
+                            <!-- checkbox -->
+                            <div class="flex items-center mb-4">
+                                <input  type="checkbox"  th:field="*{favorite}"
+                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                <label for="default-checkbox"
+                                    class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Is this your
+                                    favorite contact?</label>
+                            </div>
+
+                            <div class="button-container text-center">
+                                <button type="submit"
+                                    class="px-3 py-2 rounded  bg-black text-white dark:bg-blue-600 hover:dark:bg-blue-700">Update
+                                    Contact</button>
+                                <button type="reset"
+                                    class="px-3 py-2 rounded  bg-black text-white dark:bg-blue-600 hover:dark:bg-blue-700">Reset</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script th:src="@{'/js/admin.js'}"></script>
+    <script>
+        console.log("Dashboard Page")
+    </script>
+</body>
+
+</html>

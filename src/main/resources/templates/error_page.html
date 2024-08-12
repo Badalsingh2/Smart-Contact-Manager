@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{base :: parent(~{::#content},~{::title},~{::script})}"> 
+<head>
+    <title >Home Page</title>
+</head>
+
+<body>
+   <div id="content" class="text-center">
+    <div th:replace="~{message::messagebox}"></div>
+    <h1>email not verified</h1>
+    
+   </div> 
+   <script>
+    console.log("Home page")
+   </script>
+</body>
+</html>

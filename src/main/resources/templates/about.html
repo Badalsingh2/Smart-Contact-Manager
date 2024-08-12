@@ -1,30 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" th:replace="~{base :: parent(~{::#content},~{::title},~{::script})}"> 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <!-- <link rel="stylesheet" data-th-href="@{'/css/output.css'}"/>
-    -->
+    <title >About Page</title>
 </head>
+
 <body>
-    <!-- <h1>This is about page</h1> -->
-    <!-- Using Fragment -->
-    <h1>This is about</h1>
-    <hr>
-    <div class="opening"  th:replace="${isLogin} ? ~{base :: parent(~{::#set2})} : ~{base :: test(~{::.time})}">
-        <section id="set2">
-            This is dynamic content
-        </section>
-
-        <section class="time">
-            You are not logged in
-        </section>
-
-    </div>
-
-    <!-- <div th:insert="~{home :: homet}">
-
-    </div>  -->
+   <div id="content">
+    <h1>Welcome to about page</h1>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur, modi asperiores tenetur, sint harum consequuntur esse atque cupiditate vel doloremque, odio alias ab. Perspiciatis ipsam consequuntur officia ducimus, excepturi cumque.
+   </div> 
+   <script>
+    console.log("About page")
+   </script>
 </body>
 </html>
